@@ -18,6 +18,7 @@
           :humidity="currentCity.humidity"
           :temp="currentCity.temp"
           :defaultCity="true"
+          :timeStamp="currentCity.timeStamp "
         />
       </div>
       <div class="cities-block" v-show="citiesList.length > 0">
@@ -54,6 +55,7 @@ export default {
   },
   beforeMount () {
     this.$store.dispatch('getCurrentUserCityWeather')
+    this.$store.commit('SET_CITIES')
   },
   data () {
     return {
@@ -90,7 +92,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.header-general-title{
+.header-general-title {
   font-style: normal;
   font-weight: 300;
   font-size: 70px;
@@ -105,8 +107,9 @@ export default {
   flex-wrap: wrap;
   margin-top: 40px;
   .city-card-wrapper {
+    max-width: 350px;
     margin: 10px;
-    flex: 25% 25% 0;
+    flex: 0 0 25%;
   }
 }
 .app-actions {

@@ -11,8 +11,10 @@
           @input="inputSearchCity" v-model="findCity"
           @focus="citiesListShow = true"
         />
-        <div class="error" v-if="!$v.findCity.required">Field is required</div>
-        <div class="error" v-if="!$v.findCity.numberExist">Name must doesn't have special symbols</div>
+        <div class="modal-window-errors">
+          <div class="error" v-if="!$v.findCity.required">Field is required</div>
+          <div class="error" v-if="!$v.findCity.numberExist">Name must doesn't have special symbols</div>
+        </div>
         <ul class="modal-window-search-list" v-show="citiesList.length != 0 && citiesListShow" ref="search-results">
           <li v-for="cityOption in citiesList" :key="cityOption.id" @click="selectCity(cityOption.id)">
             {{ cityOption.city }}
@@ -56,9 +58,6 @@ export default {
       required,
       numberExist
     }
-  },
-  mounted () {
-    console.log('this.findCity:', this.findCity)
   },
   methods: {
     handleClick (event) {
@@ -139,7 +138,7 @@ export default {
         margin-bottom: 40px;
       }
     }
-    .modal-window-search-container{
+    .modal-window-search-container {
       position: relative;
       .modal-window-search {
         font-weight: 500;
@@ -150,11 +149,13 @@ export default {
         width: 100%;
         border: none;
         border-bottom: 1px solid #C4C4C4;
-        margin-bottom: 140px;
         &:focus {
           outline: none;
           border-color: orange;
         }
+      }
+      .modal-window-errors {
+        margin-bottom: 140px;
       }
     }
     .modal-window-search-actions {

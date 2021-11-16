@@ -66,14 +66,18 @@ export default {
     temp: {
       type: Number,
       default: 0
+    },
+    timeStamp: {
+      type: Date,
+      default: () => new Date()
     }
   },
   data: () => ({
     timesRemain: ''
   }),
   beforeMount () {
-    this.udpateTime()
-    this.interval = setInterval(this.udpateTime, 1000 * 60)
+    this.udpateTime(this.timeStamp)
+    this.interval = setInterval(this.udpateTime(this.timeStamp), 1000)
   },
   destroyed () {
     clearInterval(this.interval)
@@ -84,8 +88,9 @@ export default {
     }
   },
   methods: {
-    udpateTime () {
-      this.timesRemain = moment(new Date()).startOf('hour').fromNow()
+    udpateTime (time) {
+      console.log('times: ', moment(time).startOf('mins').fromNow())
+      this.timesRemain = moment(time).startOf('mins').fromNow()
     },
     handleRemove (id) {
       this.$store.dispatch('removeCity', id)
