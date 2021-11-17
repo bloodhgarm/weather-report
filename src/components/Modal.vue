@@ -8,11 +8,11 @@
       <div class="modal-window-search-container">
         <input class="modal-window-search" type="text"
           placeholder="Search city"
+          :class="{'error': $v.findCity.$invalid}"
           @input="inputSearchCity" v-model="findCity"
-          @focus="citiesListShow = true"
+          @focus="citiesListShow = !$v.findCity.$invalid"
         />
         <div class="modal-window-errors">
-          <div class="error" v-if="!$v.findCity.required">Field is required</div>
           <div class="error" v-if="!$v.findCity.numberExist">Name must doesn't have special symbols</div>
         </div>
         <ul class="modal-window-search-list" v-show="citiesList.length != 0 && citiesListShow" ref="search-results">
@@ -32,7 +32,6 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
 
 let searchTime
 // eslint-disable-next-line
@@ -55,7 +54,6 @@ export default {
   },
   validations: {
     findCity: {
-      required,
       numberExist
     }
   },
@@ -79,8 +77,14 @@ export default {
           break
       }
     },
+    onBlur (event) {
+      console.log(event)
+    },
     inputSearchCity () {
-      if (this.$v.findCity.$invalid) return
+      if (this.$v.findCity.$invalid) {
+        this.citiesListShow = false
+        return
+      }
       clearTimeout(searchTime)
       searchTime = setTimeout(async () => {
         if (this.findCity.trim()) {
@@ -115,9 +119,11 @@ export default {
     height: 100vh;
     background-color: rgba($color: #000000, $alpha: 0.8);
     top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 15px;
     .modal-window-wrapper {
       text-align: left;
       background-color: white;
@@ -144,18 +150,26 @@ export default {
         font-weight: 500;
         font-size: 24px;
         line-height: 24px;
-        color: #C1C1C1;
+        color: #1B1B1B;
         padding: 16px 0;
         width: 100%;
         border: none;
         border-bottom: 1px solid #C4C4C4;
+        &::placeholder {
+          color: #C1C1C1;
+        }
         &:focus {
           outline: none;
           border-color: orange;
         }
       }
       .modal-window-errors {
+        margin-top: 12px;
         margin-bottom: 140px;
+      }
+      .error {
+        color: #FF0101;
+        border-color: #FF0101 !important;
       }
     }
     .modal-window-search-actions {

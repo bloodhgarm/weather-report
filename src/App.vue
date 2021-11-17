@@ -5,7 +5,7 @@
         <h1 class="header-general-title">
           World Weather
         </h1>
-        <p>
+        <p class="header-subtitle">
           Watch weather in your current location
         </p>
       </div>
@@ -75,18 +75,23 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Lato, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   & * {
     box-sizing: border-box;
+    font-family: Lato, Helvetica, Arial, sans-serif;
   }
 }
 .container {
   max-width: 1520px;
   margin: 0 auto;
+  @media(max-width: 1024px) {
+    padding: 0 15px;
+    width: 100%;
+  }
 }
 .current-city-block{
   display: flex;
@@ -100,6 +105,11 @@ export default {
   color: #1B1B1B;
   margin: 0;
 }
+.header-subtitle {
+  color: #767676;
+  font-size: 24px;
+  margin: 32px 0 20px 0;
+}
 .cities-block {
   display: flex;
   width: 100%;
@@ -107,9 +117,36 @@ export default {
   flex-wrap: wrap;
   margin-top: 40px;
   .city-card-wrapper {
+    padding: 0 15px;
     max-width: 350px;
-    margin: 10px;
+    margin: 15px 0;
     flex: 0 0 25%;
+  }
+  @media (max-width: 1024px) {
+    & {
+      justify-content: center;
+      .city-card-wrapper {
+        flex: 0 0 33%;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    & {
+      justify-content: space-between;
+      .city-card-wrapper {
+        flex: 0 0 50%;
+        margin-bottom: 20px;
+
+      }
+    }
+  }
+  @media (max-width: 425px) {
+    & {
+      justify-content: center;
+      .city-card-wrapper {
+        flex: 0 0 100%;
+      }
+    }
   }
 }
 .app-actions {

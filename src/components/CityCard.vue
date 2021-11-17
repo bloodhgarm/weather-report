@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     udpateTime () {
-      console.log('times: ', moment(this.timeStamp).startOf('mins').fromNow())
       this.timesRemain = moment(this.timeStamp).startOf('mins').fromNow()
     },
     handleRemove (id) {
@@ -110,7 +109,11 @@ export default {
     border-radius: 6px;
     padding: 24px;
     width: 100%;
+    height: 100%;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     &__table {
       width: 100%;
       & tr td:first-child {
@@ -131,14 +134,30 @@ export default {
       display: block;
       text-align: right;
       margin-top: 10px;
+      margin-bottom: 32px;
       font-size: 12px;
+      color: #A8A8A8;
+    }
+    &__title {
+      font-weight: bold;
+      font-size: 32px;
+      line-height: 38px;
+      color: #1B1B1B;
+      margin: 0;
+    }
+    &__country {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      color: #1B1B1B;
     }
   }
   .city-card-actions {
-    margin-top: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    margin-top: auto;
     .city-card-action {
       background-color: transparent;
       text-transform: uppercase;
